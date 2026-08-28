@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';``
-function Signup() {
+function Signup(props) {
     const [credentials, setCredentials] = React.useState({name:"", email:"", password:"", cpassword:""});
     const onChange = (e)=>{
         setCredentials({...credentials, [e.target.name]: e.target.value})
@@ -21,12 +21,15 @@ function Signup() {
                 })
             });
             const json = await response.json();
-            console.log(json);         
+            console.log(json);      
+            if (!json.success) {
+                props.showAlert("Invalid credentials", "danger");
+            } else {   
                 // Save the auth token and redirect
                 localStorage.setItem('token', json.authToken);                
                 history("/");              
-          
-        }
+          props.showAlert("Account created successfully", "success");
+        }}
   return (
     <div className="container my-3">
     <form onSubmit={handlesumbit}>

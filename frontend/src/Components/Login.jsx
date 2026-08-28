@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-export default function Login() {
+export default function Login(props) {
   const [credials, setCredentials] = useState({email: "", password: ""});
   let history = useNavigate();
     const handlesumbit =    async (e) => {
@@ -16,14 +16,14 @@ export default function Login() {
             })
         });
         const json = await response.json();
-        console.log(json);
+       
         if (json.success) {
             // Save the auth token and redirect
             localStorage.setItem('token', json.authToken);
-            
+            props.showAlert("Logged in successfully", "success");
             history("/");
         } else {
-            alert("Invalid credentials");
+            props.showAlert("Invalid credentials", "danger");
         }
     }
     const onChange = (e)=>{

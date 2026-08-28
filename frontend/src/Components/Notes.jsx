@@ -1,24 +1,33 @@
 import React from 'react'
 import { useContext,useEffect,useRef,useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Notesitem from './Noteitem.jsx'
 import NotesContext from '../Context/NotesContext.jsx'
-export default function Notes() {
+export default function Notes(props) {
+  let navigate = useNavigate();
      const {notes, setNotes,addNote,getNotes,editNote} = useContext(NotesContext);
      const ref = useRef(null);
       const refClose = useRef(null);
      useEffect(() => {
+      
+      if(localStorage.getItem('token')){
         getNotes();
+      } else {
+        navigate("/login");
+      }
       }, []);
       const updateNote = (currentNote) => {
        ref.current.click();
+      
        setNote({ id: currentNote._id, etitle:currentNote.title, edescription:currentNote.description, etag:currentNote.tag});
       }
-      const [note, setNote] = React.useState({etitle:"", edescription:"", etag:"genral"});
+      const [note, setNote] = useState({etitle:"", edescription:"", etag:"genral"});
       const addNotes = (e) => {
         e.preventDefault();
         console.log("Updating the note....", note); 
         editNote(note.id, note.etitle, note.edescription, note.etag);      
         refClose.current.click();
+        props.showAlert("Note updated successfully", "success");
       }
       const onChange = (e)=>{
         setNote({...note, [e.target.name]: e.target.value})
@@ -108,9 +117,9 @@ export default function Notes() {
       {notes.length===0 && 'No notes to display'
       }
         <div className="row my-3">
-      {notes.map((note) => {
+      {notes.map((note,showAlert) => {
         return (
-       <Notesitem key={note._id} updateNote={updateNote} note={note}></Notesitem>
+       <Notesitem key={note._id} updateNote={updateNote} showAlert={showAlert} note={note}></Notesitem>
          
         )})}
       </div>
