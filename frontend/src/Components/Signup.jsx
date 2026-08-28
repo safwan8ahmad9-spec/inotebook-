@@ -32,6 +32,7 @@ function Signup(props) {
         }}
   return (
     <div className="container my-3">
+        <h2>Create an account to use iNotebook</h2>
     <form onSubmit={handlesumbit}>
          <div className="mb-3">
     <label htmlFor="name" className="form-label">Name</label>

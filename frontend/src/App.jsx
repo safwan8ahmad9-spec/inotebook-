@@ -28,7 +28,7 @@ function App() {
       <NotesState>
         <Navbar></Navbar>
         <Alert alert={alert} />
-        <h1>iNotebook</h1>
+     
         <Routes>
           <Route path="/" element={<Home showAlert={showAlert} />} />
           <Route path="/about" element={<About />} />

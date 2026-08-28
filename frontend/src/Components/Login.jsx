@@ -33,7 +33,8 @@ export default function Login(props) {
         });
     }
   return (
-    <div>
+    <div className="container mt-3">
+        <h2>Login to continue to notes</h2>
       <form onSubmit={handlesumbit}>
   <div className="mb-3">
     <label htmlFor="email" className="form-label">Email address</label>
