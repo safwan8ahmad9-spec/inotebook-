@@ -1,5 +1,6 @@
 require('dotenv').config({ path: './key.env' });
 
+var cors = require('cors');
 const express = require('express');
 const connectToMongo = require('./db');
 
@@ -7,7 +8,7 @@ connectToMongo();
 
 const app = express();
 const port = process.env.PORT || 3000;
-
+app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {

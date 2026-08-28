@@ -3,7 +3,7 @@ import { Link,useLocation } from 'react-router-dom'
 function Navbar() {
    let location = useLocation()
    React.useEffect(() => {
-    console.log(location.pathname)
+    
   }, [location]);
   return (
     <div>
@@ -22,13 +22,13 @@ function Navbar() {
           <Link className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`} to="/about">About</Link>
         </li>
         <div className="dropdown">
-  <button class="btn btn-  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <button className="btn btn-  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     Dropdown
   </button>
-  <ul class="dropdown-menu">
-    <li><button class="dropdown-item" type="button">Dropdown item</button></li>
-    <li><button class="dropdown-item" type="button">Dropdown item</button></li>
-    <li><button class="dropdown-item" type="button">Dropdown item</button></li>
+  <ul className="dropdown-menu">
+    <li><button className="dropdown-item" type="button">Dropdown item</button></li>
+    <li><button className="dropdown-item" type="button">Dropdown item</button></li>
+    <li><button className="dropdown-item" type="button">Dropdown item</button></li>
   </ul>
 </div>
       </ul>
