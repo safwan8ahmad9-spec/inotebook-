@@ -3,7 +3,7 @@ import notesContext from '../Context/NotesContext.jsx'
 import { useContext } from 'react'
 export default function AddNotes() {
     const {addNote} = useContext(notesContext);
-    const [note, setNote] = React.useState({title:"", description:"", tag:"genral"});
+    const [note, setNote] = React.useState({title:"", description:"", tag:""});
     const addNotes = (e) => {
         e.preventDefault();
         addNote(note.title, note.description, note.tag);
@@ -29,6 +29,8 @@ export default function AddNotes() {
             name="title"
             aria-describedby="emailHelp"
             onChange={onChange}
+            minLength={5} required
+            value={note.title}
           />
 
           <div id="emailHelp" className="form-text">
@@ -45,8 +47,10 @@ export default function AddNotes() {
             type="text"
             className="form-control"
             id="description"
+            minLength={5} required
             name="description"
             onChange={onChange}
+            value={note.description}
           />
         </div>
 
@@ -60,12 +64,15 @@ export default function AddNotes() {
             className="form-control"
             id="tag"
             name="tag"
+            minLength={3} required
             onChange={onChange}
+            value={note.tag}
           />
         </div>
 
 
-        <button type="submit"  onClick={addNotes} className="btn btn-primary">
+
+        <button type="submit" disabled={note.title.length < 5 || note.description.length < 5 || note.tag.length < 3}  onClick={addNotes} className="btn btn-primary">
           Submit
         </button>
       </form>

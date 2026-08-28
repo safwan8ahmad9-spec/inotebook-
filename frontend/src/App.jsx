@@ -9,7 +9,8 @@ import Home from './Components/Home.jsx';
 import About from './Components/About.jsx';
 import NotesState from './Context/NotesState.jsx';
 import Alert from './Components/Alert.jsx';
-  
+ import Login from './Components/Login.jsx';
+import Signup from './Components/Signup.jsx'; 
 function App() {
   return (
     <>
@@ -20,6 +21,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </NotesState>
     </>

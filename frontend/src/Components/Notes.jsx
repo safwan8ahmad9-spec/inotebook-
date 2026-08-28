@@ -52,6 +52,7 @@ export default function Notes() {
             id="etitle"
             value={note.etitle}
             name="etitle"
+            minLength={5} required
             aria-describedby="emailHelp"
             onChange={onChange}
           />
@@ -72,6 +73,7 @@ export default function Notes() {
             id="edescription"
             name="edescription"
             value={note.edescription}
+            minLength={5} required
             onChange={onChange}
           />
         </div>
@@ -86,6 +88,7 @@ export default function Notes() {
             className="form-control"
             id="etag"
             value={note.etag}
+            minLength={3} required
             name="etag"
             onChange={onChange}
           />
@@ -102,6 +105,8 @@ export default function Notes() {
 </div>
         <div className="container my-3">
       <h2>Your Notes</h2>
+      {notes.length===0 && 'No notes to display'
+      }
         <div className="row my-3">
       {notes.map((note) => {
         return (

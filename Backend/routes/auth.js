@@ -14,12 +14,13 @@ router.post(
         body('name').isLength({ min: 3 })
     ],
     async (req, res) => {
-
+        let success = false;
         // Check for validation errors
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
             return res.status(400).json({
+                success,
                 errors: errors.array()
             });
         }
@@ -28,6 +29,7 @@ router.post(
             const existingUser = await User.findOne({ email: req.body.email });
             if (existingUser) {
                 return res.status(400).json({
+                    success,
                     error: 'Email already exists'
                 });
             }
@@ -47,12 +49,13 @@ router.post(
             };
             if (!process.env.JWT_SECRET) {
                 return res.status(500).json({
+                    success,
                     error: 'Server configuration error: JWT_SECRET is missing'
                 });
             }
-
             const token = jwt.sign(data, process.env.JWT_SECRET);
-            return res.status(201).json({ authToken: token });
+            success = true;
+            return res.status(201).json({ success,authToken: token });
             console.log(process.env.JWT_SECRET);
         } catch (error) {
             console.log(error);
@@ -60,11 +63,13 @@ router.post(
             // Duplicate email
             if (error.code === 11000) {
                 return res.status(400).json({
+                    success,
                     error: 'Email already exists'
                 });
             }
 
             return res.status(500).json({
+                success,
                 error: 'Internal Server Error'
             });
         }
@@ -92,7 +97,8 @@ router.post(
             }
             const passwordCompare = await bcrypt.compare(password,user.password);
             if(!passwordCompare){
-                return res.status(400).json({error:"please try to login with correct credentials"});
+                success = false;
+                return res.status(400).json({ success, error:"please try to login with correct credentials"});
             }
             const data = {
                 user:{
@@ -106,7 +112,8 @@ router.post(
             }
 
             const token = jwt.sign(data, process.env.JWT_SECRET);
-            return res.status(200).json({ authToken: token });
+            success = true;
+            return res.status(200).json({ success, authToken: token });
         } catch (error) { 
             console.log(error);
             return res.status(500).json({
