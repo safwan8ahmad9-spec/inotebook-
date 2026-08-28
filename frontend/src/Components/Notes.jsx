@@ -16,7 +16,7 @@ export default function Notes() {
       const [note, setNote] = React.useState({etitle:"", edescription:"", etag:"genral"});
       const addNotes = (e) => {
         e.preventDefault();
-        console.log("Updating the note...", note); 
+        console.log("Updating the note....", note); 
         editNote(note.id, note.etitle, note.edescription, note.etag);      
         refClose.current.click();
       }
